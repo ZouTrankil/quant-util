@@ -6,6 +6,7 @@ Created on 10/03/2025.
 """
 import tushare as ts
 import logging
+import akshare as ak
 
 
 class BaseConfig:
