@@ -7,5 +7,5 @@ Created on 2025/3/16.
 import akshare as ak
 
 
-stock_zh_a_tick_tx_js_df = ak.stock_zh_a_tick_tx_js(symbol="sz000001")
+stock_zh_a_tick_tx_js_df = ak.stock_zh_a_tick_tx_js(symbol="sz300059")
 print(stock_zh_a_tick_tx_js_df)
