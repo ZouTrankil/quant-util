@@ -8,6 +8,23 @@ Created on 10/03/2025.
 import datetime
 from typing import List, Tuple
 
+def judge_weekend(current_date):
+    weekday = current_date.weekday()
+    return weekday == 5 or weekday == 6
+
+# 排除星期6和星期7
+def get_current_none_weekend_date_str():
+    current_date = datetime.date.today()
+    weekday = current_date.weekday()
+
+    # 排除周末
+    if weekday == 5:  # 星期六
+        current_date -= datetime.timedelta(days=1)
+    elif weekday == 6:  # 星期日
+        current_date -= datetime.timedelta(days=2)
+
+    formatted_date = current_date.strftime("%Y%m%d")
+    return formatted_date
 
 def get_current_date_str():
     current_date = datetime.date.today()
@@ -42,12 +59,18 @@ def get_increment_days(local_date=None, start_date='19900309', end_date=None) ->
     while current <= end:
         date_str = current.strftime("%Y%m%d")
         if date_str not in local_set:
-            result.append(date_str)
+            if not judge_weekend(current):
+                result.append(date_str)
         current += datetime.timedelta(days=1)
 
     return result
 
+def some_func_1(start_date, end_date, increment:True):
+    if end_date is None:
+        end_date = get_current_none_weekend_date_str()
+    return []
 
 if __name__ == '__main__':
     print(get_current_date_str())
     print(get_days_ago(2))
+    print(get_current_none_weekend_date_str())
