@@ -52,3 +52,4 @@ class BaseConfig:
 
 class DataSource(BaseConfig):
     tushare_pro = ts.pro_api(token='2876ea85cb005fb5fa17c809a98174f2d5aae8b1f830110a5ead6211')
+    date_cache_path = './cache/date_cache'

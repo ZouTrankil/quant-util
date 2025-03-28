@@ -48,5 +48,5 @@ if not anomalies.empty:
 else:
     print("未检测到异常交易。")
 
-df.to_csv('zh_a_tick_tx_js.csv')
-anomalies.to_csv('zh_a_tick_tx_js_anomalies.csv')
+df.to_csv('zh_a_tick_tx_js1.csv')
+anomalies.to_csv('zh_a_tick_tx_js_anomalies1.csv')
