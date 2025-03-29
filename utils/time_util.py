@@ -5,7 +5,7 @@ from multiprocessing import Process, Event
 
 import requests
 
-from aiclient.utils.log_util import LogUtil
+from .log_util import LogUtil
 
 
 class TimeUtil:

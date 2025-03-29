@@ -4,7 +4,7 @@ import threading
 import time
 from typing import Callable, List, Any
 
-from aiclient.utils.log_util import LogUtil
+from .log_util import LogUtil
 
 
 class Buffered:
@@ -70,6 +70,37 @@ class Buffered:
             if self.buffer:
                 self.flush(self.buffer)
                 self.buffer = []
+
+
+class Buffer:
+    """
+    简单的缓冲区实现，用于存储和处理二进制数据
+    """
+    def __init__(self, buffer=None):
+        self.buffer = buffer if buffer is not None else bytearray()
+        self.pos = 0 if buffer is None else len(buffer)
+
+    def write(self, data):
+        """将数据写入缓冲区"""
+        if isinstance(data, bytes) or isinstance(data, bytearray):
+            self.buffer.extend(data)
+            self.pos += len(data)
+        else:
+            byte_data = bytearray(data)
+            self.buffer.extend(byte_data)
+            self.pos += len(byte_data)
+        return self
+
+    def read(self, length=None):
+        """从缓冲区读取数据"""
+        if length is None:
+            return self.buffer[:self.pos]
+        if self.pos >= length:
+            result = self.buffer[:length]
+            self.buffer = self.buffer[length:]
+            self.pos -= length
+            return result
+        return None
 
 
 if __name__ == '__main__':

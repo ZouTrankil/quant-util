@@ -4,8 +4,8 @@ from enum import IntEnum
 import select
 import time
 
-from aiclient.utils.log_util import LogUtil
-from aiclient.server.protocol.dldl.buffer import Buffer
+from .log_util import LogUtil
+from .buffered import Buffer
 
 
 class ProcessType(IntEnum):
