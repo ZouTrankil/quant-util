@@ -19,6 +19,9 @@ def code_symbol(code):
         '4': '.BJ',  # 北京证券交易所，以 4 开头
         '8': '.BJ'  # 北京证券交易所，以 8 开头
     }
+    # 如果code已经有后缀，则直接返回
+    if code.endswith(tuple(exchange_suffix.values())):
+        return code
     # 遍历字典的键
     for prefix, suffix in exchange_suffix.items():
         if code.startswith(prefix):

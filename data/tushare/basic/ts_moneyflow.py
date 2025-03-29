@@ -24,7 +24,7 @@ def get_industry_moneyflow(start_date, end_date):
         print(f"获取数据失败：{e}")
         return None
 
-def get_stock_moneyflow(symbol, start_date:str = None, end_date:str = None) -> float:
+def get_stock_moneyflow(symbol, start_date:str = None, end_date:str = None) -> float: # type: ignore
     # df = pro.moneyflow(ts_code=symbol, start_date=start_date, end_date=end_date)
     df = DataSource.tushare_pro.moneyflow_ths(ts_code=symbol, start_date=start_date, end_date=end_date)
     # 计算总流入和总流出
@@ -47,5 +47,5 @@ if __name__ == "__main__":
 
     # print(positive_inflow_data)
 
-    r = get_stock_moneyflow("600519.sh", start_date, end_date)
+    r = get_stock_moneyflow("600519.sh", start_date)
     print(r)
