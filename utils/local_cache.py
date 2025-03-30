@@ -301,16 +301,27 @@ def date_range_cache_with_symbol(symbol_key='symbol'):
 
                         # 更新结果集
                         cached_results[date_key] = value
-            elif isinstance(missing_results, pd.DataFrame) and len(missing_dates) == 1:
-                # 单日结果是DataFrame
-                date_key = missing_dates[0]
-                data_csv = missing_results.to_csv(index=False)
-                cursor.execute(
-                    f"INSERT OR REPLACE INTO {table_name} (date_key, symbol, update_time, data_csv) VALUES (?, ?, ?, ?)",
-                    (date_key, symbol, now, data_csv)
-                )
-                logger.debug(f"缓存写入: 函数={func.__name__}, 标识={symbol}, 日期={date_key}, 数据行数={len(missing_results)}")
-                cached_results[date_key] = missing_results
+            elif isinstance(missing_results, pd.DataFrame) and len(missing_dates) > 0:
+                # 确保DataFrame包含date列
+                missing_results.rename(columns={'trade_date': 'date'}, inplace=True)
+                if 'date' not in missing_results.columns:
+                    logger.error(f"DataFrame缺少date列: 函数={func.__name__}")
+                    return organize_date_results(cached_results, date_range)
+
+                # 按日期分组处理数据
+                for date_key, group_df in missing_results.groupby('date'):
+                    if date_key in missing_dates:
+                        # 将数据转换为CSV格式
+                        data_csv = group_df.to_csv(index=False)
+
+                        # 存入数据库
+                        cursor.execute(
+                            f"INSERT OR REPLACE INTO {table_name} (date_key, symbol, update_time, data_csv) VALUES (?, ?, ?, ?)",
+                            (date_key, symbol, now, data_csv)
+                        )
+
+                        logger.debug(f"缓存写入: 函数={func.__name__}, 标识={symbol}, 日期={date_key}, 数据行数={len(group_df)}")
+                        cached_results[date_key] = group_df
 
             conn.commit()
             conn.close()
