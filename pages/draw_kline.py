@@ -136,10 +136,3 @@ if st.session_state.code:
     }
 
     st_echarts(option1, height="600px")
-
-
-# if st.session_state.code:
-#     code = st.session_state.code
-#     code = code_symbol(code)
-#     df = DataSource.tushare_pro.stk_factor_pro(ts_code=code, start_date='20240328', end_date='20250328')
-#     st.dataframe(df)
