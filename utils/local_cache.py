@@ -181,7 +181,7 @@ def every_day_update():
         return wrapper
     return decorator
 
-def date_range_cache_with_symbol():
+def date_range_cache_with_symbol(symbol_key='symbol'):
     """
     日期范围缓存装饰器
     使用单独的数据库表存储函数的返回值，以日期和唯一标识(如股票代码)为键
@@ -200,7 +200,7 @@ def date_range_cache_with_symbol():
             # 提取参数
             start_date = all_args.get('start_date')
             end_date = all_args.get('end_date')
-            symbol = all_args.get('symbol', all_args.get('code', all_args.get('stock_code', '')))
+            symbol = all_args.get('symbol', all_args.get('code', all_args.get('symbol_key', '')))
 
             # 确保日期格式正确
             if start_date:
