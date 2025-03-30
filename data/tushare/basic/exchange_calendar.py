@@ -12,6 +12,9 @@ from datetime import datetime
 from utils.global_config import DataSource
 from utils.log_util import logger
 
+# 设置日志级别为TRACE
+logger.disable('INFO')
+
 CACHE_DIR = './cache/trade_calendar'
 
 
@@ -60,10 +63,10 @@ class TradeCalendar:
                     if last_update_date == current_date:
                         self._trade_days = cache_data['days']
                         self._sorted_days = sorted(list(self._trade_days))
-                        logger.info(f"使用今日交易日历缓存: {current_date}")
+                        logger.trace(f"使用今日交易日历缓存: {current_date}")
                         need_update = False
                     else:
-                        logger.info(f"交易日历缓存已过期: 缓存日期={last_update_date}, 当前日期={current_date}")
+                        logger.trace(f"交易日历缓存已过期: 缓存日期={last_update_date}, 当前日期={current_date}")
 
             except Exception as e:
                 logger.error(f"读取交易日历缓存发生错误: {str(e)}")
@@ -75,14 +78,14 @@ class TradeCalendar:
     def _update_cache(self, force: bool = False):
         """更新缓存数据"""
         current_date = get_current_date_str()
-        logger.info(f"更新交易日历缓存: 日期={current_date}, 强制更新={force}")
+        logger.trace(f"更新交易日历缓存: 日期={current_date}, 强制更新={force}")
 
         if not force and len(self._sorted_days) > 0:  # 确保列表不为空
             try:
                 # 查找缓存中最近的交易日期
                 last_trade_day = self._sorted_days[-1]
                 if last_trade_day == _encode_date(current_date):
-                    logger.info(f"缓存中最近的交易日期与当前日期相同: {current_date}")
+                    logger.trace(f"缓存中最近的交易日期与当前日期相同: {current_date}")
                     return
 
                 # 检查文件修改时间
@@ -90,7 +93,7 @@ class TradeCalendar:
                     last_update_timestamp = os.path.getmtime(TRADE_DAYS_CACHE)
                     last_update_date = datetime.fromtimestamp(last_update_timestamp).strftime('%Y%m%d')
                     if last_update_date == current_date:
-                        logger.info(f"缓存文件今日已更新: {current_date}")
+                        logger.trace(f"缓存文件今日已更新: {current_date}")
                         return
             except Exception as e:
                 logger.error(f"检查缓存时发生错误: {str(e)}")
@@ -123,7 +126,7 @@ class TradeCalendar:
                             'days': self._trade_days,
                             'last_update': current_date
                         }, f)
-                    logger.info(f"交易日历缓存更新完成: 共{len(self._trade_days)}个交易日")
+                    logger.trace(f"交易日历缓存更新完成: 共{len(self._trade_days)}个交易日")
                 except Exception as e:
                     logger.error(f"保存交易日历缓存时发生错误: {str(e)}")
             else:
@@ -163,7 +166,7 @@ class TradeCalendar:
         # 检查日期是否超过最大交易日
         if date_int > self._sorted_days[-1]:
             # 如果日期大于最后一个交易日，直接返回最后一个交易日
-            logger.info(f"日期 {date_str} 大于最大交易日 {_decode_date(self._sorted_days[-1])}，返回最大交易日")
+            logger.trace(f"日期 {date_str} 大于最大交易日 {_decode_date(self._sorted_days[-1])}，返回最大交易日")
             return _decode_date(self._sorted_days[-1])
 
         # 正常二分查找
@@ -171,7 +174,7 @@ class TradeCalendar:
 
         # 防止索引越界，日志记录调试信息
         if idx >= len(self._sorted_days):
-            logger.warning(f"索引 {idx} 超出交易日列表长度 {len(self._sorted_days)}，返回最后一个交易日")
+            logger.trace(f"索引 {idx} 超出交易日列表长度 {len(self._sorted_days)}，返回最后一个交易日")
             return _decode_date(self._sorted_days[-1]) if self._sorted_days else ""
 
         # 如果找到了精确匹配
