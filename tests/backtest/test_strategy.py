@@ -4,7 +4,7 @@
 实现一个简单的均线交叉策略用于测试
 """
 
-import backtrader as bt
+import backTest as bt
 import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta

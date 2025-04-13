@@ -1,1 +1,14 @@
 loguru>=0.7.2 
+akshare~=1.15.64
+pandas~=2.2.3
+numpy~=2.2.1
+tushare~=1.4.19
+requests~=2.32.3
+streamlit~=1.41.1
+pyecharts~=2.0.6
+colorama~=0.4.6
+backtrader~=1.9.78.123
+matplotlib~=3.10.0
+setuptools~=75.6.0
+xtquant~=241014.1.2
+pytz~=2024.2

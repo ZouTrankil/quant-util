@@ -9,10 +9,10 @@
 
 import unittest
 import os
-import backtrader as bt
-from backtrader import TimeFrame
+import backTest as bt
+from backTest import TimeFrame
 
-from backtrader import DataLoader
+from backTest import DataLoader
 from tests.backtrader.test_strategy import create_test_data
 
 class TestDataLoader(unittest.TestCase):

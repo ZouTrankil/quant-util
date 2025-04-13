@@ -10,9 +10,9 @@
 
 import unittest
 
-from backtrader import PerformanceAnalyzer
-from backtrader import BacktestEngine
-from backtrader import DataLoader
+from backTest import PerformanceAnalyzer
+from backTest import BacktestEngine
+from backTest import DataLoader
 from tests.backtrader.test_strategy import TestStrategy, create_test_data
 
 class TestPerformanceAnalyzer(unittest.TestCase):

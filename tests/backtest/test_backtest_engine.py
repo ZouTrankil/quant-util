@@ -8,10 +8,10 @@
 """
 
 import unittest
-import backtrader as bt
+import backTest as bt
 
-from backtrader import BacktestEngine
-from backtrader import DataLoader
+from backTest import BacktestEngine
+from backTest import DataLoader
 from tests.backtrader.test_strategy import TestStrategy, create_test_data
 
 class TestBacktestEngine(unittest.TestCase):
