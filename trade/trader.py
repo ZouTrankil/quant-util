@@ -7,10 +7,9 @@
 
 import abc
 from typing import Dict, List, Optional, Any, Tuple, Union
-from datetime import datetime
 
 from .models import Order, QuoteOnline
-from .consts import OrderDirection, OrderStatus, PriceType, OrderType
+from utils.consts import OrderStatus, PriceType
 
 
 class BaseTrader(abc.ABC):

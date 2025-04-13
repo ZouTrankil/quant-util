@@ -32,8 +32,8 @@ pip install -e .
 ### 行情数据处理
 
 ```python
-from quant_util.core.models import QuoteOnline
-from quant_util.core.display import print_quote_detail
+from trade.models import QuoteOnline
+from display.console_display import print_quote_detail
 
 # 创建行情数据对象
 quote = QuoteOnline()
@@ -52,7 +52,7 @@ print_quote_detail(quote)
 ### 股票代码处理
 
 ```python
-from quant_util.core.utils import (
+from utils.utils import (
     normalize_stock_code,
     format_stock_code_with_exchange,
     get_rise_limit_by_stock_code
@@ -71,7 +71,7 @@ limit = get_rise_limit_by_stock_code("600000")  # 返回 0.1 (10%)
 ### 日志记录
 
 ```python
-from quant_util.core.logger import get_logger, set_log_config
+from utils.logger import get_logger, set_log_config
 
 # 设置日志配置
 set_log_config(
@@ -94,8 +94,9 @@ logger.error("这是一条错误日志")
 ### 交易接口
 
 ```python
-from quant_util.core.trader import BaseTrader
-from quant_util.core.consts import PriceType
+from trade.trader import BaseTrader
+from utils.consts import PriceType
+
 
 # 实现自定义交易接口
 class MyTrader(BaseTrader):
@@ -129,6 +130,7 @@ class MyTrader(BaseTrader):
 
     def get_quote(self, stock_code):
         pass
+
 
 # 使用交易接口
 trader = MyTrader()

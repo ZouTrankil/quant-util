@@ -9,14 +9,10 @@
 """
 
 import unittest
-import pandas as pd
-import numpy as np
-from datetime import datetime
-import backtrader as bt
 
-from quant_util.backtrader.performance.analyzer import PerformanceAnalyzer
-from quant_util.backtrader.engine.backtest_engine import BacktestEngine
-from quant_util.backtrader.data_feed.data_loader import DataLoader
+from backtrader import PerformanceAnalyzer
+from backtrader import BacktestEngine
+from backtrader import DataLoader
 from tests.backtrader.test_strategy import TestStrategy, create_test_data
 
 class TestPerformanceAnalyzer(unittest.TestCase):

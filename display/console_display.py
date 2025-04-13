@@ -4,13 +4,13 @@
 该模块提供与数据展示相关的工具函数，如彩色输出、表格显示等。
 """
 
-from typing import Optional, List, Dict, Any, Union
+from typing import Optional, List, Dict, Any
 import json
 from colorama import Fore, Style, init
 from terminaltables3 import AsciiTable
 
-from .models import QuoteOnline
-from .utils import get_number_desc, calculate_change_percent
+from trade.models import QuoteOnline
+from utils.utils import get_number_desc, calculate_change_percent
 
 # 初始化colorama
 init()

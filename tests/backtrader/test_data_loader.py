@@ -8,14 +8,11 @@
 """
 
 import unittest
-import pandas as pd
-import numpy as np
 import os
-from datetime import datetime
 import backtrader as bt
 from backtrader import TimeFrame
 
-from quant_util.backtrader.data_feed.data_loader import DataLoader
+from backtrader import DataLoader
 from tests.backtrader.test_strategy import create_test_data
 
 class TestDataLoader(unittest.TestCase):
